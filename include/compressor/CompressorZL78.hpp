@@ -1,0 +1,4 @@
+#ifndef COMPRESSORZL78_H
+#define COMPRESSORZL78_H
+
+#endif
