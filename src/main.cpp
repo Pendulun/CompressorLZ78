@@ -1,6 +1,6 @@
 #include <string>
 #include <iostream>
 
-public static void main(String[] args){
+int main(int argc, char *argv[]){
 
 }
