@@ -17,6 +17,9 @@ $(BUILD)main.o:	$(SRC)main.cpp $(BUILD)$(VALID)Validador.o
 $(BUILD)$(VALID)Validador.o: $(SRC)$(VALID)Validador.cpp
 	$(CC) $(CFLAGS) -I $(INCLUDE)$(VALID) -c $(SRC)$(VALID)Validador.cpp -o $(BUILD)$(VALID)Validador.o
 
+$(BUILD)$(COMPR)Node.o: $(SRC)$(COMPR)Node.cpp
+	$(CC) $(CFLAGS) -I $(INCLUDE)$(COMPR) -c $(SRC)$(COMRP)Node.cpp -o $(BUILD)$(COMPR)Node.o
+
 test:	$(EXEC)
 	@bash run_tests.sh $(EXEC) $(TMPOUT)
 
