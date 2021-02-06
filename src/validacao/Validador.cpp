@@ -1,7 +1,7 @@
 #include "Validador.hpp"
 
 
-namespace Validacao{
+namespace validacao{
 	bool Validador::confereExtensaoArquivo(std::string arquivo, std::string extensao){
 		if(arquivo.length()>=5){
 			if(extensao.compare(0,extensao.length(),arquivo,arquivo.length()-4,4) == 0){

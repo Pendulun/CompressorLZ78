@@ -1,7 +1,7 @@
 #ifndef VALIDADOR_H
 #define VALIDADOR_H
 #include <string>
-namespace Validacao{
+namespace validacao{
 	class Validador{
 	public:
 		bool confereExtensaoArquivo(std::string arquivo, std::string extensao);
