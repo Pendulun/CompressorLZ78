@@ -26,9 +26,6 @@ $(BUILD)$(COMPR)Compressor.o: $(SRC)$(COMPR)Compressor.cpp $(INCLUDE)$(COMPR)Com
 $(BUILD)$(COMPR)TrieEncoder.o: $(SRC)$(COMPR)TrieEncoder.cpp $(INCLUDE)$(COMPR)TrieEncoder.hpp $(BUILD)$(COMPR)Trie.o  
 	$(CC) $(CFLAGS) -I $(INCLUDE)$(COMPR) -c $(SRC)$(COMPR)TrieEncoder.cpp -o $(BUILD)$(COMPR)TrieEncoder.o
 
-$(BUILD)$(COMPR)TrieDecoder.o: $(SRC)$(COMPR)TrieDecoder.cpp $(INCLUDE)$(COMPR)TrieDecoder.hpp $(BUILD)$(COMPR)Trie.o  
-	$(CC) $(CFLAGS) -I $(INCLUDE)$(COMPR) -c $(SRC)$(COMPR)TrieDecoder.cpp -o $(BUILD)$(COMPR)TrieDecoder.o
-
 $(BUILD)$(COMPR)Trie.o: $(SRC)$(COMPR)Trie.cpp $(INCLUDE)$(COMPR)Trie.hpp
 	$(CC) $(CFLAGS) -I $(INCLUDE)$(COMPR) -c $(SRC)$(COMPR)Trie.cpp -o $(BUILD)$(COMPR)Trie.o
 
