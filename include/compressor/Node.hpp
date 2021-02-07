@@ -14,10 +14,10 @@ namespace compressor{
 		Node(int index, std::string letter);
 		~Node();
 		int getIndex();
-		char getLetter();
+		std::string getLetter();
 		void setIndex(int index);
-		void setLetter(char letter);
-		void addChild(Node* child);
+		void setLetter(std::string letter);
+		void addChild(Node* child, bool ehRaiz);
 		bool possuiFilhos();
 		std::forward_list<Node*>* getChildren();
 	};

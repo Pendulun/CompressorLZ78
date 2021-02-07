@@ -4,14 +4,21 @@ namespace compressor{
 	Node::Node(int index, std::string letter){
 		this->index = index;
 		this->letter = letter;
-		this->children = nullptr;
+		this->children = new std::forward_list<Node*>();
 	}
 
 	Node::~Node(){
+
 		auto it = this->children->begin();
 		for(it;it != this->children->end();it++){
-			delete *it;
+			std::cout<<"Deletando: "<<(*it)->getIndex();
+			std::cout<<" Letra: "<<(*it)->getLetter()<<std::endl;
+			delete (*it);
 		}
+		
+		this->children->clear();
+
+		delete this->children;
 	}
 
 	/**
