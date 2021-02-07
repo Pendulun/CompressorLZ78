@@ -22,14 +22,24 @@ namespace compressor{
 					}else{
 						int novoIndice = this->myTrie->getMaxIndex() + 1;
 						Node* novoPadrao = new Node(novoIndice,proxLetra);
-						arquivoSaida<<"("<<retorno->getLastFound()->getIndex()<<","<<proxLetra<<")";
+						std::string saida = "("+std::to_string(retorno->getLastFound()->getIndex())+","+proxLetra+")";
+						//arquivoSaida<<saida;
+						int index = retorno->getLastFound()->getIndex();
+						arquivoSaida.write((char*)(&index),sizeof(int));
+						arquivoSaida.write(&letra,sizeof(char));
+
 						this->myTrie->inserirNo(novoPadrao, retorno->getLastFound());
 						padraoLido = "";
 					}
 					delete retorno;
     			}
     			if(padraoLido.compare("") != 0){
-    				arquivoSaida<<"("<<ultimoLido->getIndex()<<","<<(char)4<<")";
+    				std::string saida = "("+std::to_string(ultimoLido->getIndex())+","+(char)4+")";
+    				//arquivoSaida<<saida;
+    				char eof = (char)4;
+    				int index = ultimoLido->getIndex();
+    				arquivoSaida.write((char*)(&index),sizeof(int));
+    				arquivoSaida.write((char*)(&eof),sizeof(char));
     			}
     		//	arquivoSaida<<(char)4;
     		}else{
@@ -49,12 +59,31 @@ namespace compressor{
 		arquivoEntrada.unsetf(std::ios_base::skipws);
 		std::ofstream arquivoSaida;
 		arquivoSaida.open(saida,std::ofstream::out);
+
 		if(arquivoEntrada.is_open()){
     		if(arquivoSaida.is_open()){
     			char par1 = ' ', par2 = ' ', virgula = ' ', letra = ' ';
+    			int* indexNovo = (int*) malloc(sizeof(int));
+    			char* letraNova = (char*) malloc(sizeof(char));
     			int index = 0;
     			std::string vazio = "";
     			this->decoder->push_back(std::make_pair(0,vazio));
+    			while(arquivoEntrada.read((char*)indexNovo,sizeof(int)) && arquivoEntrada.read(letraNova,sizeof(char))){
+    				std::string letraLida = "";
+	   				std::string acumulador = "";
+    				if(*letraNova != (char)4){
+	    				letraLida += *letraNova;
+	    				this->decoder->push_back(std::make_pair(*indexNovo,letraLida));
+	    			}
+	    			acumulador = this->getAcumulado(*indexNovo);
+	    			arquivoSaida<<acumulador;
+	    			if(*letraNova != (char)4){
+	    				arquivoSaida<<letraLida;
+	    			}
+    			}
+
+
+    			/*
     			while(!arquivoEntrada.eof()){
     				while(arquivoEntrada.get(par1)){
 	    				std::string letraLida = "";
@@ -74,6 +103,7 @@ namespace compressor{
 	    				}
 	    			}
     			}
+    			*/
     		}else{
     			std::cout<<"Nao foi possivel abrir o arquivo de saida"<<std::endl;
     		}
