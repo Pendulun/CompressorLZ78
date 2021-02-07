@@ -12,13 +12,11 @@ namespace compressor{
 
 	void Trie::inserirNo(Node* filho,Node* pai){}
 
-	Node* Trie::pesquisar(std::string padrao){}
+	Retorno* Trie::pesquisar(std::string padrao){}
 
 	Trie::Trie(){}
 
 	Trie::~Trie(){
-		std::cout<<"Destrutor Trie"<<std::endl;
-		std::cout<<"Deletando raiz"<<std::endl;
 		delete this->raiz;
 	}
 }
