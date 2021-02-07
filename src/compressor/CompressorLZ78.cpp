@@ -62,10 +62,8 @@ namespace compressor{
 
 		if(arquivoEntrada.is_open()){
     		if(arquivoSaida.is_open()){
-    			char par1 = ' ', par2 = ' ', virgula = ' ', letra = ' ';
     			int* indexNovo = (int*) malloc(sizeof(int));
     			char* letraNova = (char*) malloc(sizeof(char));
-    			int index = 0;
     			std::string vazio = "";
     			this->decoder->push_back(std::make_pair(0,vazio));
     			while(arquivoEntrada.read((char*)indexNovo,sizeof(int)) && arquivoEntrada.read(letraNova,sizeof(char))){
@@ -82,28 +80,8 @@ namespace compressor{
 	    			}
     			}
 
-
-    			/*
-    			while(!arquivoEntrada.eof()){
-    				while(arquivoEntrada.get(par1)){
-	    				std::string letraLida = "";
-	   					std::string acumulador = "";
-	    				arquivoEntrada>>index;
-	    				arquivoEntrada>>virgula;
-	    				arquivoEntrada>>letra;
-	    				arquivoEntrada>>par2;
-	    				if(letra != (char)4){
-	    					letraLida += letra;
-	    					this->decoder->push_back(std::make_pair(index,letraLida));
-	    				}
-	    				acumulador = this->getAcumulado(index);
-	    				arquivoSaida<<acumulador;
-	    				if(letra != (char)4){
-	    					arquivoSaida<<letraLida;
-	    				}
-	    			}
-    			}
-    			*/
+    			free(indexNovo);
+    			free(letraNova);
     		}else{
     			std::cout<<"Nao foi possivel abrir o arquivo de saida"<<std::endl;
     		}
