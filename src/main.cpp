@@ -46,7 +46,7 @@ int main(int argc, char *argv[]){
 							std::cout<<"Extensao do Arquivo de saida nao esta correto"<<std::endl;
 						}
 					}else{
-						arquivoSaida = arquivoEntrada.substr(0,arquivoEntrada.length() - 3);
+						arquivoSaida = arquivoEntrada.substr(0,arquivoEntrada.length() - 3)+"txt";
 						compressor->decode(arquivoEntrada,arquivoSaida);
 					}
 				}else{
@@ -63,7 +63,7 @@ int main(int argc, char *argv[]){
 							std::cout<<"Extensao do Arquivo de saida nao reconhecida"<<std::endl;
 						}
 					}else{
-						arquivoSaida = arquivoEntrada.substr(0,arquivoEntrada.length() - 3);
+						arquivoSaida = arquivoEntrada.substr(0,arquivoEntrada.length() - 3)+"z78";
 						compressor->encode(arquivoEntrada,arquivoSaida);
 					}
 				}else{
