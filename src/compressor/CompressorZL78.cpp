@@ -16,7 +16,24 @@ namespace compressor{
 
 		std::string padraoLido = "";
 		for(int i =0; i<length;i++){
-			std::cout<<"Letra lida: "<<buffer[i]<<std::endl;
+			std::string proxLetra = "";
+			proxLetra+=buffer[i];
+			std::cout<<"PadraoLido atual:"<<padraoLido<<std::endl;
+			std::cout<<"Prox Letra: "<<proxLetra<<std::endl;
+			Node* noEncontrado = this->myTrie->pesquisar(padraoLido+proxLetra);
+			if(noEncontrado == nullptr){
+				std::cout<<"Padrao já existente"<<std::endl;
+				padraoLido+=proxLetra;
+			}else{
+				std::cout<<"Eh novo padrao"<<std::endl;
+				int novoIndice = this->myTrie->getMaxIndex() + 1;
+				Node* novoPadrao = new Node(novoIndice,padraoLido+proxLetra);
+				arquivoSaida<<"("<<noEncontrado->getIndex()<<","<<proxLetra<<")";
+				std::cout<<"Gravado: "<<"("<<noEncontrado->getIndex()<<","<<proxLetra<<")"<<std::endl;
+				this->myTrie->inserirNo(novoPadrao, noEncontrado);
+				padraoLido = "";
+				
+			}
 		}
 
 		arquivoEntrada.close();
