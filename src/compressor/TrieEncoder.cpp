@@ -4,13 +4,10 @@ namespace compressor{
 	
 	TrieEncoder::TrieEncoder(){
 		this->maxIndex = 0;
-		std::cout<<"1"<<std::endl;
 		this->setRaiz(new Node(0,""));
-		std::cout<<"2"<<std::endl;
-		Node* novoNo = new Node(0,"");
-		(this->getRaiz())->addChild(novoNo,true);
-		std::cout<<"3"<<std::endl;
-		delete novoNo;
+		//Node* novoNo = new Node(0,"");
+		//(this->getRaiz())->addChild(novoNo,true);
+		//delete novoNo;
 	}
 
 	TrieEncoder::~TrieEncoder(){
@@ -41,9 +38,14 @@ namespace compressor{
 		int indexPadrao = 0;
 		Node* noAtual = this->getRaiz();
 		bool temTransicao = false;
+		bool ehFolha = false;
 		do{
 			temTransicao = false;
-			if(noAtual->possuiFilhos()){ //É nó interno
+			ehFolha = false;
+			std::cout<<"Procurando no no: "<<noAtual->getLetter();
+			std::cout<<" de indice: "<<noAtual->getIndex()<<std::endl;
+			if(noAtual->possuiFilhos()){
+				//É nó interno
 				bool encontrouNosFilhos = false; 
 				for(Node* filho : *(noAtual->getChildren())){
 					std::string letraPadrao = "";
@@ -53,8 +55,8 @@ namespace compressor{
 					if(letraPadrao.compare(letraNo) == 0){
 						if(indexPadrao==(padrao.length()-1)){
 							//Foi o último caractere do padrão, logo encontrei
-							std::cout<<"Encontramos o padrão, nao retornamos nada"<<std::endl;
-							return NULL;
+							std::cout<<"Encontramos o padrão, nao retornamos nada 1"<<std::endl;
+							return nullptr;
 						}else{
 							noAtual = filho;
 							indexPadrao++;
@@ -63,26 +65,43 @@ namespace compressor{
 						}
 					}
 				}
-
+				
 				if(!temTransicao){ //Não achou uma transição dado o nó atual
+					std::cout<<"Nao tem transicao"<<std::endl;
 					break;
+				}else{
+					std::cout<<"Tem transicao"<<std::endl;
 				}
-			}else{ //Nó atual é nó folha
+			}else{
+				std::cout<<"No atual e folha"<<std::endl; //Nó atual é nó folha
+				ehFolha = true;
 				break;
 			}
 		}while(temTransicao);
 
 		//Não foi encontrado uma transição (nó folha ou nó interno sem transição)
-		if(indexPadrao==(padrao.length()-1)){
+		if(indexPadrao==(padrao.length()-1) && temTransicao){
 			//Se atingimos o final do padrão,
 			//Achamos o padrão 
-			std::cout<<"Encontramos o padrão, nao retornamos nada"<<std::endl;
-			return NULL;
+			std::cout<<"Encontramos o padrão, nao retornamos nada 2"<<std::endl;
+			return nullptr;
 		}else{
 			//Se não encontramos o padrão ainda, aqui deveria passar a ser adicionado o padrão
+			//Se for um nó folha, existe um valor associado a ele
+			// Se for interno, devemos achar o nó filho que contém o valor associado a esse interno
+			/*if(!ehFolha){ 
+				std::cout<<"No atual nao eh folha"<<std::endl;
+				for(auto it = noAtual->getChildren()->begin();it != noAtual->getChildren()->end();it++){
+					if((*it)->getLetter().compare("") == 0){
+						noAtual = (*it);
+						break;
+					}
+				}
+			}*/
+
 			std::cout<<"Nao encontramos o padrao"<<std::endl;
 			std::cout<<"Deve ser adicionado em:"<<noAtual->getLetter();
-			std::cout<<"Index: "<<noAtual->getIndex()<<std::endl;
+			std::cout<<" Index: "<<noAtual->getIndex()<<std::endl;
 			return noAtual;
 		}
 	}

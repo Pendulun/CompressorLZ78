@@ -11,7 +11,7 @@ namespace compressor{
 		Node* pesquisar(std::string padrao) override;
 		TrieEncoder();
 		~TrieEncoder();
-		int getMaxIndex();
+		int getMaxIndex() override;
 	private:
 		int maxIndex;
 	};
