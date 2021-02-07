@@ -4,8 +4,13 @@ namespace compressor{
 	
 	TrieEncoder::TrieEncoder(){
 		this->maxIndex = 0;
+		std::cout<<"1"<<std::endl;
 		this->setRaiz(new Node(0,""));
-		this->getRaiz()->addChild(new Node(0,""),true);
+		std::cout<<"2"<<std::endl;
+		Node* novoNo = new Node(0,"");
+		(this->getRaiz())->addChild(novoNo,true);
+		std::cout<<"3"<<std::endl;
+		delete novoNo;
 	}
 
 	TrieEncoder::~TrieEncoder(){
@@ -16,14 +21,14 @@ namespace compressor{
 	* Retorna o maior índice na Trie atual
 	*/
 	int TrieEncoder::getMaxIndex(){
-		return this->maxIndex();
+		return this->maxIndex;
 	}
 
 	/**
 	* Insere um nó na lista de filhos do nó pai
 	*/
 	void TrieEncoder::inserirNo(Node* filho, Node* pai){	
-		pai->addChild(filho);
+		pai->addChild(filho,false);
 		maxIndex++;
 	}
 
@@ -41,7 +46,11 @@ namespace compressor{
 			if(noAtual->possuiFilhos()){ //É nó interno
 				bool encontrouNosFilhos = false; 
 				for(Node* filho : *(noAtual->getChildren())){
-					if(padrao[indexPadrao].compare(filho->getLetter())){
+					std::string letraPadrao = "";
+					std::string letraNo = "";
+					letraNo += filho->getLetter();
+					letraPadrao += padrao[indexPadrao];
+					if(letraPadrao.compare(letraNo) == 0){
 						if(indexPadrao==(padrao.length()-1)){
 							//Foi o último caractere do padrão, logo encontrei
 							std::cout<<"Encontramos o padrão, nao retornamos nada"<<std::endl;
