@@ -3,6 +3,7 @@
 namespace compressor{
 	
 	Node* Trie::getRaiz(){
+		std::cout<<"4"<<std::endl;
 		return this->raiz;
 	}
 

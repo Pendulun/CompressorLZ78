@@ -9,7 +9,7 @@ namespace compressor{
 		Node* getRaiz();
 		virtual void inserirNo(Node* filho,Node* pai) = 0;
 		virtual Node* pesquisar(std::string padrao) = 0;
-		~Trie() virtual;
+		virtual ~Trie();
 		Trie();
 	private:
 		Node* raiz;
