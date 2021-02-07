@@ -1,6 +1,8 @@
 #include <string>
 #include <iostream>
 #include "Validador.hpp"
+#include "Compressor.hpp"
+#include "CompressorZL78.hpp"
 #define EXTENSAOZ78 ".z78"
 #define EXTENSAOTXT ".txt"
 
@@ -12,9 +14,10 @@ int main(int argc, char *argv[]){
 	std::string arquivoEntrada = "";
 	std::string comandoUm = "";
 	std::string comandoDois = "";
+	compressor::Compressor* compressor = new compressor::CompressorZL78();
 	bool passouComandoDois = true;
 	bool temSaida = false;
-	Validacao::Validador validador;
+	validacao::Validador validador;
 
 
 	if(argc == 5){
@@ -38,28 +41,30 @@ int main(int argc, char *argv[]){
 					std::cout<<"Aceitou o arquivo"<<std::endl;
 					if(temSaida){
 						if(validador.confereExtensaoArquivo(arquivoSaida, EXTENSAOTXT)){
-						// Descomprime arquivo com nome de saida passado
+						compressor->decode(arquivoEntrada,arquivoSaida);
 						}else{
 							std::cout<<"Extensao do Arquivo de saida nao esta correto"<<std::endl;
 						}
 					}else{
-						// Descomprime arquivo com nome de saida igual entrada
+						arquivoSaida = arquivoEntrada.substr(0,arquivoEntrada.length() - 3);
+						compressor->decode(arquivoEntrada,arquivoSaida);
 					}
 				}else{
 					std::cout<<"Extensao do Arquivo de entrada nao reconhecida"<<std::endl;
 				}
 			}else if(validador.confereComando(encode,comandoUm)){
-				std::cout<<"eh para descomprimir"<<std::endl;
+				std::cout<<"eh para comprimir"<<std::endl;
 				if(validador.confereExtensaoArquivo(arquivoEntrada, EXTENSAOTXT)){
 					std::cout<<"Aceitou o arquivo"<<std::endl;
 					if(temSaida){
 						if(validador.confereExtensaoArquivo(arquivoSaida, EXTENSAOZ78)){
-						// Comprime arquivo com nome de saida passado
+						compressor->encode(arquivoEntrada,arquivoSaida);
 						}else{
 							std::cout<<"Extensao do Arquivo de saida nao reconhecida"<<std::endl;
 						}
 					}else{
-						// Comprime arquivo com nome de saida igual entrada
+						arquivoSaida = arquivoEntrada.substr(0,arquivoEntrada.length() - 3);
+						compressor->encode(arquivoEntrada,arquivoSaida);
 					}
 				}else{
 					std::cout<<"Extensao do Arquivo de entrada nao esta correto"<<std::endl;
@@ -72,4 +77,5 @@ int main(int argc, char *argv[]){
 			std::cout<<"Nao foram passados comandos suficientes"<<std::endl;
 		}
 	}
+	delete compressor;
 }
