@@ -12,8 +12,6 @@ namespace compressor{
 
 		auto it = this->children->begin();
 		for(it;it != this->children->end();it++){
-			std::cout<<"Deletando: "<<(*it)->getIndex();
-			std::cout<<" Letra: "<<(*it)->getLetter()<<std::endl;
 			delete (*it);
 		}
 		
@@ -53,7 +51,6 @@ namespace compressor{
 		if(this->children != nullptr){
 			return !this->children->empty();
 		}else{
-			std::cout<<"Ta nullptr os children"<<std::endl;
 			return false;
 		}
 	}
@@ -67,13 +64,11 @@ namespace compressor{
 		//Se o nó não tem filhos, devemos criar um novo nó filho que contém o index atual
 		//Para que apenas nós folha tenham valores nos index
 		if(this->children->empty()){
-			std::cout<<"Nao possuo filhos, criando no com valor"<<std::endl;
 			Node* noValor = new Node(this->index,"");
 			this->children->push_front(noValor);
 			//this->index = -1;
 		}
 		if(!ehRaiz){
-			std::cout<<"Adicionando na lista de filhos"<<std::endl;
 			this->children->insert_after(this->children->begin(),child);
 		}
 	}

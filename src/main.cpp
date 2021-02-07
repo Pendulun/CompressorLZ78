@@ -2,7 +2,7 @@
 #include <iostream>
 #include "Validador.hpp"
 #include "Compressor.hpp"
-#include "CompressorZL78.hpp"
+#include "CompressorLZ78.hpp"
 #define EXTENSAOZ78 ".z78"
 #define EXTENSAOTXT ".txt"
 
@@ -14,7 +14,7 @@ int main(int argc, char *argv[]){
 	std::string arquivoEntrada = "";
 	std::string comandoUm = "";
 	std::string comandoDois = "";
-	compressor::Compressor* compressor = new compressor::CompressorZL78();
+	compressor::Compressor* compressor = new compressor::CompressorLZ78();
 	bool passouComandoDois = true;
 	bool temSaida = false;
 	validacao::Validador validador;
@@ -36,9 +36,7 @@ int main(int argc, char *argv[]){
 			comandoUm = argv[1];
 			arquivoEntrada += argv[2];
 			if(validador.confereComando(decode,comandoUm)){
-				std::cout<<"eh para descomprimir"<<std::endl;
 				if(validador.confereExtensaoArquivo(arquivoEntrada, EXTENSAOZ78)){
-					std::cout<<"Aceitou o arquivo"<<std::endl;
 					if(temSaida){
 						if(validador.confereExtensaoArquivo(arquivoSaida, EXTENSAOTXT)){
 						compressor->decode(arquivoEntrada,arquivoSaida);
@@ -53,9 +51,7 @@ int main(int argc, char *argv[]){
 					std::cout<<"Extensao do Arquivo de entrada nao reconhecida"<<std::endl;
 				}
 			}else if(validador.confereComando(encode,comandoUm)){
-				std::cout<<"eh para comprimir"<<std::endl;
 				if(validador.confereExtensaoArquivo(arquivoEntrada, EXTENSAOTXT)){
-					std::cout<<"Aceitou o arquivo"<<std::endl;
 					if(temSaida){
 						if(validador.confereExtensaoArquivo(arquivoSaida, EXTENSAOZ78)){
 						compressor->encode(arquivoEntrada,arquivoSaida);
