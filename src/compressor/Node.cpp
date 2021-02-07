@@ -5,6 +5,7 @@ namespace compressor{
 		this->index = index;
 		this->letter = letter;
 		this->children = new std::forward_list<Node*>();
+		this->children->clear();
 	}
 
 	Node::~Node(){
@@ -49,9 +50,10 @@ namespace compressor{
 	* descobrir se o nó é folha ou não
 	*/
 	bool Node::possuiFilhos(){
-		if(this->children != NULL){
-			return this->children->empty();
+		if(this->children != nullptr){
+			return !this->children->empty();
 		}else{
+			std::cout<<"Ta nullptr os children"<<std::endl;
 			return false;
 		}
 	}
@@ -68,20 +70,20 @@ namespace compressor{
 			std::cout<<"Nao possuo filhos, criando no com valor"<<std::endl;
 			Node* noValor = new Node(this->index,"");
 			this->children->push_front(noValor);
-			this->index = -1;
+			//this->index = -1;
 		}
 		if(!ehRaiz){
 			std::cout<<"Adicionando na lista de filhos"<<std::endl;
-			this->children->insert_after(this->children->end(),child);
+			this->children->insert_after(this->children->begin(),child);
 		}
 	}
 
 	/**
-	* Retorna a lista filhos do nó. Será NULL caso não tenha filhos
+	* Retorna a lista filhos do nó. Será nullptr caso não tenha filhos
 	*/
 	std::forward_list<Node*>* Node::getChildren(){
 		if(this->children->empty()){
-			return NULL;
+			return nullptr;
 		}else{
 			return this->children;	
 		}
