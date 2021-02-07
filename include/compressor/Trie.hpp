@@ -7,6 +7,7 @@ namespace compressor{
 	class Trie{
 	public:
 		Node* getRaiz();
+		virtual int getMaxIndex() = 0;
 		virtual void inserirNo(Node* filho,Node* pai) = 0;
 		virtual Node* pesquisar(std::string padrao) = 0;
 		virtual ~Trie();
