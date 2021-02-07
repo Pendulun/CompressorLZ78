@@ -17,13 +17,13 @@ $(BUILD)main.o:	$(SRC)main.cpp $(BUILD)$(VALID)Validador.o  $(BUILD)$(COMPR)Comp
 $(BUILD)$(VALID)Validador.o: $(SRC)$(VALID)Validador.cpp
 	$(CC) $(CFLAGS) -I $(INCLUDE)$(VALID) -c $(SRC)$(VALID)Validador.cpp -o $(BUILD)$(VALID)Validador.o
 
-$(BUILD)$(COMPR)CompressorZL78.o: $(SRC)$(COMPR)CompressorZL78.cpp $(INCLUDE)$(COMPR)CompressorZL78.hpp $(BUILD)$(COMPR)Compressor.o 
+$(BUILD)$(COMPR)CompressorZL78.o: $(SRC)$(COMPR)CompressorZL78.cpp $(INCLUDE)$(COMPR)CompressorZL78.hpp $(BUILD)$(COMPR)Compressor.o $(BUILD)$(COMPR)TrieEncoder.o $(BUILD)$(COMPR)Trie.o
 	$(CC) $(CFLAGS) -I $(INCLUDE)$(COMPR) -c $(SRC)$(COMPR)CompressorZL78.cpp -o $(BUILD)$(COMPR)CompressorZL78.o
 
 $(BUILD)$(COMPR)Compressor.o: $(SRC)$(COMPR)Compressor.cpp $(INCLUDE)$(COMPR)Compressor.hpp
 	$(CC) $(CFLAGS) -I $(INCLUDE)$(COMPR) -c $(SRC)$(COMPR)Compressor.cpp -o $(BUILD)$(COMPR)Compressor.o
 
-$(BUILD)$(COMPR)TrieEncoder.o: $(SRC)$(COMPR)TrieEncoder.cpp $(INCLUDE)$(COMPR)TrieEncoder.hpp $(BUILD)$(COMPR)Trie.o  
+$(BUILD)$(COMPR)TrieEncoder.o: $(SRC)$(COMPR)TrieEncoder.cpp $(INCLUDE)$(COMPR)TrieEncoder.hpp $(BUILD)$(COMPR)Trie.o $(BUILD)$(COMPR)Node.o
 	$(CC) $(CFLAGS) -I $(INCLUDE)$(COMPR) -c $(SRC)$(COMPR)TrieEncoder.cpp -o $(BUILD)$(COMPR)TrieEncoder.o
 
 $(BUILD)$(COMPR)Trie.o: $(SRC)$(COMPR)Trie.cpp $(INCLUDE)$(COMPR)Trie.hpp
@@ -39,4 +39,4 @@ clean:
 	rm -f $(BUILD)*/*.o
 
 mem:
-	valgrind --leak-check=full --show-leak-kinds=all $(EXEC) ./testcases/EX5
+	valgrind --leak-check=full --show-leak-kinds=all $(EXEC) -c ./testcases/EX1.txt 
