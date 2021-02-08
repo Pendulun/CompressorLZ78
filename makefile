@@ -42,7 +42,7 @@ clean:
 	rm -f $(BUILD)*/*.o
 
 mem_encode:
-	valgrind --leak-check=full --show-leak-kinds=all $(EXEC) -c ./testcases/EX4.txt -o saidaEX4.z78
+	valgrind --leak-check=full --show-leak-kinds=all $(EXEC) -c ./testcases/beowulf.txt -o saidaBeowulf.z78
 
 mem_decode:
-	valgrind --leak-check=full --show-leak-kinds=all $(EXEC) -x saidaEX4.z78 -o decodeEX4.txt 
+	valgrind --leak-check=full --show-leak-kinds=all $(EXEC) -x saidaBeowulf.z78 -o decodeBeowulf.txt 
